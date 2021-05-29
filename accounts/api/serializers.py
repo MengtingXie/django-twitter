@@ -14,10 +14,8 @@ class UserSerializerForTweet(serializers.ModelSerializer):
         fields = ('id', 'username')
 
 
-class UserSerializerForTweet(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username')
+class UserSerializerForLike(UserSerializerForTweet):
+    pass
 
 
 class UserSerializerForComment(UserSerializerForTweet):
