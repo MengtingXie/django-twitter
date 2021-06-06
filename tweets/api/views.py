@@ -25,7 +25,7 @@ class TweetViewSet(viewsets.GenericViewSet,
             return [AllowAny()]
         return [IsAuthenticated()]
 
-    @required_params(request_attr='query_params', params=['user_id'])
+    @required_params(method='GET', params=['user_id'])
     def list(self, request):
         tweets = Tweet.objects.filter(
             user_id=request.query_params['user_id']
