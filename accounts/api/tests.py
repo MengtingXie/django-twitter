@@ -4,16 +4,17 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from django.contrib.auth.models import User
 
-
 LOGIN_URL = '/api/accounts/login/'
 LOGOUT_URL = '/api/accounts/logout/'
 SIGNUP_URL = '/api/accounts/signup/'
 LOGIN_STATUS_URL = '/api/accounts/login_status/'
 USER_PROFILE_DETAIL_URL = '/api/profiles/{}/'
 
+
 class AccountApiTests(TestCase):
 
     def setUp(self):
+        self.clear_cache()
         # 这个函数会在每个 test function 执行的时候被执行
         self.client = APIClient()
         self.user = self.createUser(
