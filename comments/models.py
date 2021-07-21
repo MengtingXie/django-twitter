@@ -1,3 +1,4 @@
+from accounts.services import UserService
 from django.contrib.auth.models import User
 from django.db import models
 from tweets.models import Tweet
@@ -35,3 +36,13 @@ class Comment(models.Model):
             self.tweet_id,
         )
 
+    @property
+    def like_set(self):
+        return Like.objects.filter(
+            content_type=ContentType.objects.get_for_model(Comment),
+            object_id=self.id,
+        ).order_by('-created_at')
+
+    @property
+    def cached_user(self):
+        return UserService.get_user_through_cache(self.user_id)

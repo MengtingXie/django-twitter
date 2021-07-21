@@ -1,3 +1,4 @@
+from accounts.services import UserService
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -31,14 +32,9 @@ class Tweet(models.Model):
             object_id=self.id,
         ).order_by('-created_at')
 
-    # @property
-    # def comments(self):
-    # return self.comment_set.all()
-    # return Comment.objects.filter(tweet=self)
-
-    def __str__(self):
-        # 这里是你执行 print(tweet instance) 的时候会显示的内容
-        return f'{self.created_at} {self.user}: {self.content}'
+    @property
+    def cached_user(self):
+        return UserService.get_user_through_cache(self.user_id)
 
 
 class TweetPhoto(models.Model):

@@ -1,7 +1,6 @@
 from testing.testcases import TestCase
 from rest_framework.test import APIClient
 
-
 LIKE_BASE_URL = '/api/likes/'
 LIKE_CANCEL_URL = '/api/likes/cancel/'
 COMMENT_LIST_API = '/api/comments/'
@@ -9,9 +8,11 @@ TWEET_LIST_API = '/api/tweets/'
 TWEET_DETAIL_API = '/api/tweets/{}/'
 NEWSFEED_LIST_API = '/api/newsfeeds/'
 
+
 class LikeApiTests(TestCase):
 
     def setUp(self):
+        self.clear_cache()
         self.linghu, self.linghu_client = self.create_user_and_client('linghu')
         self.dongxie, self.dongxie_client = self.create_user_and_client('dongxie')
 
@@ -81,7 +82,7 @@ class LikeApiTests(TestCase):
             'object_id': -1,
         })
         self.assertEqual(response.status_code, 400)
-        self.assertEqual('object_id'in response.data['errors'], True)
+        self.assertEqual('object_id' in response.data['errors'], True)
 
         # post success
         response = self.linghu_client.post(LIKE_BASE_URL, data)

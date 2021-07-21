@@ -4,15 +4,16 @@ from django.utils import timezone
 from rest_framework.test import APIClient
 from testing.testcases import TestCase
 
-
 COMMENT_URL = '/api/comments/'
 TWEET_LIST_API = '/api/tweets/'
 TWEET_DETAIL_API = '/api/tweets/{}/'
 NEWSFEED_LIST_API = '/api/newsfeeds/'
 
+
 class CommentApiTests(TestCase):
 
     def setUp(self):
+        self.clear_cache()
         self.linghu = self.create_user('linghu')
         self.linghu_client = APIClient()
         self.linghu_client.force_authenticate(self.linghu)
